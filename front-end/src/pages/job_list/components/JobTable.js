@@ -1,8 +1,12 @@
 import React, { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useFilters, useSortBy, useTable } from 'react-table';
 import StatusOptions from './StatusOptions';
 
+
 function JobTable({ data }) {
+    /* --------------------------- state and variable --------------------------- */
+    let navigator = useNavigate();
     const [filterInput, setFilterInput] = useState("")
     const columns = useMemo(
         () => [
@@ -16,17 +20,24 @@ function JobTable({ data }) {
                 // first group - TV Show
                 Header: "Name",
                 accessor: "name",
+                Cell: (cell) => {
+                    return (
+                        <div onClick={() => {
+                            // console.log(cell.row.original) 
+                            navigator(`/job/${cell.row.original}`,{state:{data:cell.row.original}})
+                        }} children={cell.value} />
+                    )
+                }
             },
             {
                 // first group - TV Show
                 Header: "Status",
                 accessor: "status",
-                Cell: (cell)=>{
+                Cell: (cell) => {
                     return (
-                        <StatusOptions cell={cell}/>
+                        <StatusOptions cell={cell} />
                     )
                 }
-                
             },
             {
                 // first group - TV Show
@@ -70,13 +81,14 @@ function JobTable({ data }) {
         useFilters,
         useSortBy
     );
+    
     /* -------------------------------- funciton -------------------------------- */
     const handleFilterChange = e => {
         const value = e.target.value || "";
         setFilter("name", value);
         setFilterInput(value);
     };
-    
+
     /* --------------------------------- component render --------------------------------- */
     const filterField = () => {
         return <input
@@ -88,43 +100,43 @@ function JobTable({ data }) {
 
     const mainTable = () => {
         return <table {...getTableProps()}>
-        <thead>
-            {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => {
-                        return (
-                            <th
-                                {...column.getHeaderProps(column.getSortByToggleProps())}
-                                className={
-                                    column.isSorted
-                                        ? column.isSortedDesc
-                                            ? "sort-desc"
-                                            : "sort-asc"
-                                        : ""
-                                }
-                            >{column.render("Header")} </th>
-                        )
-                    })}
-                </tr>
-            ))}
-        </thead>
-
-        <tbody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
-                prepareRow(row);
-                return (
-                    <tr
-                    
-                        // onClick={(e) => togglePopover(e, row.original.id)} 
-                        {...row.getRowProps()}>
-                        {row.cells.map((cell) => {
-                            return <td  {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+            <thead>
+                {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map((column) => {
+                            return (
+                                <th
+                                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                                    className={
+                                        column.isSorted
+                                            ? column.isSortedDesc
+                                                ? "sort-desc"
+                                                : "sort-asc"
+                                            : ""
+                                    }
+                                >{column.render("Header")} </th>
+                            )
                         })}
                     </tr>
-                )
-            })}
-        </tbody>
-    </table>
+                ))}
+            </thead>
+
+            <tbody {...getTableBodyProps()}>
+                {rows.map((row, i) => {
+                    prepareRow(row);
+                    return (
+                        <tr
+
+                            // onClick={(e) => togglePopover(e, row.original.id)} 
+                            {...row.getRowProps()}>
+                            {row.cells.map((cell) => {
+                                return <td  {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                            })}
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </table>
     }
     return (
         <>
