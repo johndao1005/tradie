@@ -1,20 +1,5 @@
 # Fergus - Frontend Technical Test
 
-## Requirements
-
-Jobs
-
-- [ ] Unique job identifier.
-- [ ] Status: one of "scheduled", "active", "invoicing", “to priced” or “completed”.
-- [ ] Acreationdateandtime.
-- [ ] And some general information like name and contact details of the client.
-
-Tradie
-
-- [ ] Filter and sort the list of jobs.
-- [ ] Click on a job in the list to view their details and add/edit notes for that job.
-- [ ] Change the status of a job
-
 ## Setup
 
 After cloned the repo to your local machine run those command in the terminal at the root directory to install the dependency
