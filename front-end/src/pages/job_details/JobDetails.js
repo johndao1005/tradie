@@ -10,11 +10,14 @@ function JobDetails() {
     /* -------------------------------- funciton -------------------------------- */
     
     const handleAddNote = () =>{
+        //TODO update to change persistent data later on
         data.notes.push(inputNote)
         setInputNote("")
     }
 
     /* --------------------------------- render --------------------------------- */
+
+    //TODO break down into smaller component
     return (
         <>
         <h2>Job Details</h2>

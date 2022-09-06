@@ -11,18 +11,15 @@ function JobTable({ data }) {
     const columns = useMemo(
         () => [
             {
-                // first group - TV Show
                 Header: "Job ID",
                 accessor: "id",
-
             },
             {
-                // first group - TV Show
                 Header: "Name",
                 accessor: "name",
                 Cell: (cell) => {
                     return (
-                        <div onClick={() => {
+                        <div style={{"color":"blue"}} onClick={() => {
                             // console.log(cell.row.original) 
                             navigator(`/job/${cell.row.original}`,{state:{data:cell.row.original}})
                         }} children={cell.value} />
@@ -30,7 +27,6 @@ function JobTable({ data }) {
                 }
             },
             {
-                // first group - TV Show
                 Header: "Status",
                 accessor: "status",
                 Cell: (cell) => {
@@ -40,14 +36,11 @@ function JobTable({ data }) {
                 }
             },
             {
-                // first group - TV Show
                 Header: "Creation Date",
                 accessor: "date",
             },
             {
-                // Second group - Details
                 Header: "Client",
-                // Second group columns
                 columns: [
                     {
                         Header: "Name",
@@ -81,7 +74,7 @@ function JobTable({ data }) {
         useFilters,
         useSortBy
     );
-    
+
     /* -------------------------------- funciton -------------------------------- */
     const handleFilterChange = e => {
         const value = e.target.value || "";
